@@ -9,11 +9,6 @@ workers_dev = true
 # 如需固定到指定资源，可在本地补充 id / preview_id。
 [[kv_namespaces]]
 binding = "SECRETS_KV"
-
-# 密钥存储协调（Durable Object）
-# 读取和修改密钥的请求都交给同一个 Durable Object 依次处理，避免多台设备同时修改时互相覆盖。
-# 使用 SQLite 存储后端，Workers 免费计划可用；首次部署时由下面的 migrations 自动创建。
-# 账户数据仍保存在 SECRETS_KV，回滚到旧版本时照常读取。
 [[durable_objects.bindings]]
 name = "SECRETS_STORE"
 class_name = "SecretsStore"
@@ -57,10 +52,6 @@ crons = ["0 16 * * *"]
 [vars]
 SW_VERSION = "v1"
 ENVIRONMENT = "production"
-
-# ====================================
-# 开发/测试环境配置
-# ====================================
 [env.development]
 name = "2fa-dev"
 
